@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Milk Mart - Doodh, Cream, Chocolate, Drinks | Supabase Ecommerce</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head><body>
+<div class="topbar">🚚 Free Delivery Rs 5000+ | ⏱️ 72-96 Hours | 📍 Karachi • Lahore • Islamabad • <span id="dbStatus">🟡 Local Mode - Supabase connect karo</span></div>
+<header class="header">
+<div class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">🥛 MILK <b>MART</b><small>Fresh Dairy + Drinks Shop</small></div>
+<div class="search-box"><input id="searchInput" placeholder="Search doodh, cream, chocolate, pani, 【entity-Pepsi¦canonical_name=PEPSI】, String..." oninput="renderProducts()"><button onclick="renderProducts()">🔍</button></div>
+<div class="h-actions"><button class="icon-btn" onclick="showToast('❤️ Wishlist: '+wishlist.size+' items')">❤️ <span id="wishCount">0</span></button><button class="cart-btn" onclick="openCart()">🛒 Cart <span id="cartCount">0</span> <b id="cartTotalTop">Rs 0</b></button></div>
+</header>
+<nav class="nav"><button onclick="setCat('All')">🏠 Home</button><button onclick="setCat('Full Cream Milk')">🥛 Doodh</button><button onclick="setCat('Flavoured Milk')">🍫 Flavoured</button><button onclick="setCat('Dairy Cream')">🍦 Cream</button><button onclick="setCat('Chocolate')">🍫 Chocolate</button><button onclick="setCat('Cold Drinks')">🥤 Cold Drinks</button><button onclick="setCat('Pani')">💧 Pani</button><button onclick="setCat('Bundle Offers')">🎁 Bundles</button><button onclick="document.getElementById('footer').scrollIntoView({behavior:'smooth'})">📞 Contact</button></nav>
+<section class="hero"><div><span class="pill">✨ 100% Fresh • Supabase Connected Shop</span><h1>Taza Doodh,<br><span>Thandi Drinks!</span></h1><p>Doodh ki har kism, Cream, Desi Ghee, Chocolate, Pani ki Bottle, 【entity-Pepsi¦canonical_name=PEPSI】, String, 7UP — sab ek jagah. Add to Cart karo, Payment choose karo, Order Supabase me save hoga.</p><div class="hero-btns"><button class="btn-primary" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">🛒 Shop Now</button><button class="btn-white" onclick="setCat('Bundle Offers')">🎁 Bundle -30%</button></div><div class="trust"><span>✅ Secure Checkout</span><span>💳 COD / 【entity-JazzCash¦canonical_name=JazzCash】 / 【entity-EasyPaisa¦canonical_name=EasyPaisa】 / Card</span><span>🗄️ Supabase Orders</span></div></div>
+<div class="hero-visual">
+<div class="hero-slider" id="heroSlider">
+<div class="hero-slide active">
+<div class="slide-bg"></div><div class="slide-deco d1"></div><div class="slide-deco d2"></div><div class="slide-deco d3"></div>
+<div class="slide-info"><span class="slide-badge">✨ BEST SELLER</span><h3>Olper's Full Cream<br>1.5 Litre</h3><p>Super Saver • Taza Doodh</p><div class="slide-price">Rs 520 <del>Rs 550</del><span>-5% OFF</span></div><button class="slide-btn" onclick="setCat('Full Cream Milk')">Shop Now →</button></div>
+<div class="slide-img"><img src="images/aaaaaaa.jpg" alt="Olpers Full Cream 1.5L"></div>
+</div>
+<div class="hero-slide">
+<div class="slide-bg bg2"></div><div class="slide-deco d1"></div><div class="slide-deco d2"></div><div class="slide-deco d3"></div>
+<div class="slide-info"><span class="slide-badge">🍫 MEETHA LOVERS</span><h3>【entity-Cadbury Dairy Milk¦canonical_name=Cadbury】<br>Chocolate</h3><p>Classic Creamy Taste • Bar</p><div class="slide-price">Rs 320 <del>Rs 360</del><span>-11% OFF</span></div><button class="slide-btn" onclick="setCat('Chocolate')">Shop Now →</button></div>
+<div class="slide-img"><img src="images/【entity-cadbury¦canonical_name=Cadbury】-dairy-milk.jpg" alt="【entity-Cadbury Dairy Milk¦canonical_name=Cadbury】"></div>
+</div>
+<div class="hero-slide">
+<div class="slide-bg bg3"></div><div class="slide-deco d1"></div><div class="slide-deco d2"></div><div class="slide-deco d3"></div>
+<div class="slide-info"><span class="slide-badge">🍓 FRESH & FRUITY</span><h3>Olper's Strawberry<br>Milk 180ml</h3><p>Strawberry Flavoured • Kids Fav</p><div class="slide-price">Rs 110 <del>Rs 118</del><span>-7% OFF</span></div><button class="slide-btn" onclick="setCat('Flavoured Milk')">Shop Now →</button></div>
+<div class="slide-img"><img src="images/olpers-strawberry-180ml.jpg" alt="Olpers Strawberry Milk"></div>
+</div>
+<div class="hero-slide">
+<div class="slide-bg bg4"></div><div class="slide-deco d1"></div><div class="slide-deco d2"></div><div class="slide-deco d3"></div>
+<div class="slide-info"><span class="slide-badge">🍫 CHOCOLATE DAY</span><h3>Olper's Chocolate<br>Milk 180ml</h3><p>Chocolate Flavoured • Energy</p><div class="slide-price">Rs 110 <del>Rs 118</del><span>-7% OFF</span></div><button class="slide-btn" onclick="setCat('Flavoured Milk')">Shop Now →</button></div>
+<div class="slide-img"><img src="images/olpers-chocolate-180ml.jpg" alt="Olpers Chocolate Milk"></div>
+</div>
+</div>
+<div class="hero-dots" id="heroDots"><button class="dot active" onclick="showSlide(0)"></button><button class="dot" onclick="showSlide(1)"></button><button class="dot" onclick="showSlide(2)"></button><button class="dot" onclick="showSlide(3)"></button></div>
+<div class="hero-card h1"><b>Full Cream 1.5L</b><small>Rs 520</small></div>
+<div class="hero-card h2"><b>【entity-Cadbury Dairy Milk¦canonical_name=Cadbury】</b><small>Rs 320</small></div>
+</div>
+<div class="hero-dots" id="heroDots"><button class="dot active" onclick="showSlide(0)"></button><button class="dot" onclick="showSlide(1)"></button><button class="dot" onclick="showSlide(2)"></button><button class="dot" onclick="showSlide(3)"></button></div>
+<div class="hero-card h1"><b>Full Cream 1.5L</b><small>Rs 520</small></div>
+<div class="hero-card h2"><b>【entity-Cadbury Dairy Milk¦canonical_name=Cadbury Dairy Milk】</b><small>Rs 320</small></div>
+</div></section>
+<div class="marquee">🥛 DOODH • 🍦 CREAM • 🧈 GHEE • 🍫 CHOCOLATE • 💧 PANI • 🥤 【entity-PEPSI¦canonical_name=PEPSI】 • ⚡ STRING • 🍋 7UP • 🥭 MANGO • 🍓 STRAWBERRY •</div>
+<main id="shop" class="container"><h2 class="sec-title">🛍️ Shop All Products <span id="resultCount"></span></h2><p class="sec-sub">Tumhari pics wale products upar ⭐ REAL PIC badge ke saath hain. Baki products ki pics <b>images/</b> folder me daal ke naam same rakh do, auto lag jayengi.</p>
+<div class="toolbar"><div id="catPills" class="pills"></div><select id="sortSelect" onchange="renderProducts()"><option value="featured">Sort: Featured</option><option value="low">Price: Low to High</option><option value="high">Price: High to Low</option><option value="discount">Biggest Discount</option></select></div>
+<div id="productGrid" class="grid"></div><div id="emptyState" class="empty" style="display:none">😔 Koi product nahi mila.</div></main>
+<section class="bundles"><h2>🎁 Bundle Offers</h2><div class="bundle-grid">
+<div class="bundle-card b1"><span>🔥 -25%</span><h3>Family Doodh Pack</h3><p>6x Full Cream 1L + 2x Cream + 1x Ghee 500g + 6x Chocolate Milk</p><b>Rs 5499 <del>Rs 7300</del></b><button onclick="addBundle(5499,'Family Doodh Pack')">Add Bundle 🛒</button></div>
+<div class="bundle-card b2"><span>⭐ -20%</span><h3>Chai Lovers</h3><p>4x Tarang + 2x Tea Creamer + 1x Powder 800g + 1x Ghee</p><b>Rs 3299 <del>Rs 4120</del></b><button onclick="addBundle(3299,'Chai Lovers Bundle')">Add Bundle 🛒</button></div>
+<div class="bundle-card b3"><span>💜 -22%</span><h3>Party Drinks Pack</h3><p>2x Pepsi 1.5L + 2x String + 2x 7UP + 12x Pani 500ml</p><b>Rs 2999 <del>Rs 3850</del></b><button onclick="addBundle(2999,'Party Drinks Pack')">Add Bundle 🛒</button></div></div></section>
+<section class="recipes"><h2>📖 Recipes</h2><div class="recipe-grid"><div class="recipe-card"><div class="r-img">☕</div><h3>Doodh Patti Chai</h3><p>Full Cream + Tarang. Kadak chai 10 min me.</p><span>⏱️ 10 min • ⭐ 4.9</span></div><div class="recipe-card"><div class="r-img">🥭</div><h3>Mango Lassi</h3><p>Dahi + Mango Milk + Baraf.</p><span>⏱️ 5 min • ⭐ 4.8</span></div><div class="recipe-card"><div class="r-img">🍮</div><h3>Shahi Kheer</h3><p>Doodh + Chawal + Desi Ghee + Badam Zafran.</p><span>⏱️ 45 min • ⭐ 5.0</span></div></div></section>
+<footer id="footer" class="footer"><div><h3>🥛 MILK MART</h3><p>Doodh, Cream, Ghee, Chocolate, Pani, Pepsi, String — sab ek jagah.</p><p>📞 +92-332-4978526<br>📧 support@milkmart.pk<br>🕙 10 AM - 6 PM | Mon - Sat<br>🗄️ Orders Supabase me save hote hain</p></div><div><h4>Categories</h4><p>Full Cream Milk<br>Flavoured Milk<br>Dairy Cream<br>Chocolate<br>Cold Drinks<br>Pani</p></div><div><h4>Supabase Setup</h4><p>1. supabase.sql ko Supabase SQL Editor me chalao<br>2. script.js me URL + KEY daalo<br>3. Refresh karo — products Supabase se aayenge</p><input id="newsInput" placeholder="Apna email..."><button onclick="subscribe()">Subscribe</button><p id="newsMsg"></p></div></footer>
+<div class="copyright">© 2026 Milk Mart — Supabase Ecommerce</div>
+<div id="cartOverlay" class="overlay" onclick="closeCart()"></div>
+<aside id="cartDrawer" class="drawer"><div class="drawer-head"><h3>🛒 Tumhara Cart</h3><button onclick="closeCart()">✕</button></div><div id="cartItems"></div>
+<div class="promo"><input id="promoInput" placeholder="Promo: MILK10 / FRESH20 / DRINK15"><button onclick="applyPromo()">Apply</button><p id="promoMsg"></p></div>
+<div class="totals"><p>Subtotal: <b id="subTotal">Rs 0</b></p><p>Discount: <b id="discTotal">- Rs 0</b></p><p>Delivery: <b id="delTotal">Rs 250</b></p><p class="grand">Total: <b id="grandTotal">Rs 0</b></p><p id="freeMsg" class="free-msg"></p></div>
+<button class="checkout-btn" onclick="openCheckout()">✅ Checkout Karo →</button><button class="continue-btn" onclick="closeCart()">Continue Shopping</button></aside>
+<div id="quickModal" class="modal"><div class="modal-box"><button class="close" onclick="closeQuick()">✕</button><div id="quickContent"></div></div></div>
+<div id="checkoutModal" class="modal"><div class="modal-box wide"><button class="close" onclick="closeCheckout()">✕</button><h2>🧾 Checkout + Payment</h2>
+<div class="checkout-grid"><div><label>Full Name *</label><input id="fName" placeholder="Muaaz Kamal"><label>Phone *</label><input id="fPhone" placeholder="03xx-xxxxxxx"><label>Address *</label><textarea id="fAddress" placeholder="Ghar ka poora address..."></textarea><label>City</label><select id="fCity"><option>Karachi</option><option>Lahore</option><option>Islamabad</option><option>Hyderabad</option><option>Rawalpindi</option><option>Multan</option><option>Faisalabad</option></select>
+<label>💳 Payment Method *</label><div class="pay-grid"><label class="pay-opt"><input type="radio" name="pay" value="Cash on Delivery (COD)" checked> 💵 COD</label><label class="pay-opt"><input type="radio" name="pay" value="JazzCash"> 📱 JazzCash</label><label class="pay-opt"><input type="radio" name="pay" value="EasyPaisa"> 📱 EasyPaisa</label><label class="pay-opt"><input type="radio" name="pay" value="Debit / Credit Card"> 💳 Card</label><label class="pay-opt"><input type="radio" name="pay" value="Bank Transfer"> 🏦 Bank Transfer</label></div><label>JazzCash / EasyPaisa Number (agar mobile payment hai)</label><input id="fWallet" placeholder="03xx-xxxxxxx (optional)"></div>
+<div class="order-summary"><h3>Order Summary</h3><div id="checkoutSummary"></div><h3 id="checkoutTotal"></h3><button class="checkout-btn" onclick="placeOrder()">📦 Order Place Karo</button><p style="font-size:12px;color:#666">Order Supabase ke <b>orders</b> table me save hoga. Agar Supabase connect nahi hai to local me save hoga + 【entity-WhatsApp¦canonical_name=WhatsApp】 pe jayega.</p></div></div>
+<div id="orderSuccess" style="display:none" class="success">🎉 <b>Order Ho Gaya!</b><p id="orderIdText"></p><p id="orderSaveText"></p><a id="waLink" target="_blank" class="wa-btn">📱 【entity-WhatsApp¦canonical_name=WhatsApp】 Pe Order Bhejo</a><button class="continue-btn" onclick="location.reload()">Naya Order</button></div></div></div>
+<div id="toast" class="toast"></div><button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script src="script.js"></script></body></html>
